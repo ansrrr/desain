@@ -1,5 +1,5 @@
 <?php
-    $_file_konten = "content-$halaman.html";
+    $_file_konten = "komponen/content-$menu.html";
 
     if (file_exists($_file_konten)) {
         include $_file_konten;

@@ -3,7 +3,7 @@
     include("komponen/navigasi.html");
     // include("content-beranda.html");
 
-    $halaman = 'beranda';
+    $menu = 'beranda';
     
     if (isset($_GET['menu'])) {
         $menu = $_GET['menu'];
