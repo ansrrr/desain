@@ -1,11 +1,19 @@
 <?php 
-    include("header.html");
-    include("navigasi.html");
+    include("komponen/header.html");
+    include("komponen/navigasi.html");
     // include("content-beranda.html");
 
     $halaman = 'beranda';
-    include 'konten.php';
-    include("footer.html");
+    
+    if (isset($_GET['menu'])) {
+        $menu = $_GET['menu'];
+    }
+    else {
+        $menu = 'beranda';
+    }
+
+    include 'komponen/konten.php';
+    include("komponen/footer.html");
 ?>
 
 
