@@ -14,6 +14,7 @@
 
     include 'komponen/konten.php';
     include("komponen/footer.html");
+
 ?>
 
 

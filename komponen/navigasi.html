@@ -1,132 +1,72 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
+<!-- NAVIGASI - DARI BOOTSTRAP -->
+<nav class="navbar navbar-expand-lg sticky-top bg-dark navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+            <img src="img/logo polnep.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
+            SDN Mendawai 4
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.css">
-</head>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                <!-- BERANDA -->
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.php">
+                        Beranda
+                    </a>
+                </li>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
+                <!-- PROFIL -->
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php?menu=profil">
+                        Profil
+                    </a>
+                </li>
+
+                <!-- PROGAM STUDI -->
+                <li class="nav-item dropdown">
+                    <a href="index.php?menu=program-studi" class="nav-link dropdown-toggle" role="button">
+                        Program Studi
+                    </a>
+                    <!-- <a href="index.php?menu=galeri" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Program Studi
+                    </a> -->
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Teknologi Informasi
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Another action
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+
+                <!-- GALERI -->
+                <li class="nav-item">
+                    <a href="index.php?menu=galeri" class="nav-link">
+                        Galeri
+                    </a>
+                </li>
+
+                <!-- KONTAK -->
+                <li class="nav-item">
+                    <a href="index.php?menu=kontak" class="nav-link">
+                        Kontak
+                    </a>
+                </li>
+            </ul>
         </div>
-    </nav>
-
-    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
-</body>
-</html> -->
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/vendor/twbs/bootstrap/dist/css/bootstrap.css">
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/logo polnep.png" alt="" width="30" height="30" class="d-inline-block align-text-top">
-                SDN Mendawai 4
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toogle="collapse" data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav ms-auto">
-
-                    <!-- BERANDA -->
-                    <li class="nav-item">
-                        <a href="index.php" class="nav-link active">Beranda</a>
-                    </li>
-                    <!-- BERANDA -->
-
-
-                    <!-- PROFIL -->
-                    <li class="nav-item">
-                        <a href="index.php?menu=profil" class="nav-link">Profil</a>
-                    </li>
-                    <!-- PROFIL -->
-
-                    <!-- PROGAM STUDI -->
-                    <li class="nav-item dropdown">
-                        <a href="index.php?menu=program-studi" class="nav-link dropdown-toggle">Program Studi</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#" class="dropdown-item">Teknologi Informasi</a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item">Budidaya Ikan</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- PROGAM STUDI -->
-
-                    <!-- GALERI -->
-                    <li class="nav-item">
-                        <a href="index.php?menu=galeri" class="nav-link">Galeri</a>
-                    </li>
-                    <!-- GALERI -->
-
-                    <!-- KONTAK -->
-                    <li class="nav-item">
-                        <a href="index.php?menu=kontak" class="nav-link">Kontak</a>
-                    </li>
-                    <!-- KONTAK -->
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <script src="/vendor/twbs/bootstrap/dist/js/bootstrap.js"></script>
-</body>
-
-</html>
+    </div>
+</nav>

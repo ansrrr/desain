@@ -1,3 +1,71 @@
-<div class="h1 text-center">
-    MASIH DALAM PENGEMBANGAN.
-</div>
+<main class="container my-5">
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistik Mahasiswa Per Prodi
+                    </h5>
+
+                    <canvas id="prodiChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-4 mt-md-0">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistik Mahasiswa Per Jenis Kelamin
+                    </h5>
+
+                    <canvas id="genderChart" width="400" height="200">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<?php include "komponen/data.php"; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
+</script>
+
+<script>
+    const prodiLabels = <?= json_encode(array_keys($prodi)); ?>;
+    const prodiData = <?= json_encode(array_values($prodi)); ?>;
+
+    const genderLabels = <?= json_encode(array_keys($gender)); ?>;
+    const genderData = <?= json_encode(array_values($gender)); ?>;
+
+    new Chart(document.getElementById('prodiChart'), {
+        type: 'bar',
+        data: {
+            labels: prodiLabels,
+            datasets: [{
+                label: 'Jumlah Mahasiswa Per Prodi',
+                data: prodiData,
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    new Chart(document.getElementById('genderChart'), {
+        type: 'pie',
+        data: {
+            labels: genderLabels,
+            datasets: [{
+                label: 'Jumlah Mahasiswa Per Jenis Kelamin',
+                data: genderData,
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+</script>
