@@ -9,4 +9,10 @@
         'Laki-laki' => 10,
         'Perempuan' => 30
     ];
+
+    $usia = [
+        '20 tahun' => 10,
+        '22 tahun' => 26,
+        '25 tahun' => 3
+    ];
 ?>

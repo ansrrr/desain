@@ -24,6 +24,32 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6 mt-4 mt-md-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistik Mahasiswa Per Jenis Kelamin
+                    </h5>
+
+                    <canvas id="usiaChart" width="400" height="200">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-4 mt-md-5">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Statistik Mahasiswa Per Jenis Kelamin
+                    </h5>
+
+                    <canvas id="radarChart" width="400" height="200">
+                    </canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 
@@ -34,10 +60,13 @@
 
 <script>
     const prodiLabels = <?= json_encode(array_keys($prodi)); ?>;
-    const prodiData = <?= json_encode(array_values($prodi)); ?>;
+    const prodiData   = <?= json_encode(array_values($prodi)); ?>;
 
     const genderLabels = <?= json_encode(array_keys($gender)); ?>;
-    const genderData = <?= json_encode(array_values($gender)); ?>;
+    const genderData   = <?= json_encode(array_values($gender)); ?>;
+
+    const usiaLabels = <?= json_encode(array_keys($usia)); ?>;
+    const usiaData   = <?= json_encode(array_values($usia)); ?>;
 
     new Chart(document.getElementById('prodiChart'), {
         type: 'bar',
@@ -61,6 +90,36 @@
             datasets: [{
                 label: 'Jumlah Mahasiswa Per Jenis Kelamin',
                 data: genderData,
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    new Chart(document.getElementById('usiaChart'), {
+        type: 'line',
+        data: {
+            labels: usiaLabels,
+            datasets: [{
+                label: 'Jumlah Mahasiswa Per Jenis Kelamin',
+                data: usiaData,
+                backgroundColor: ['#36A2EB', '#FF6384']
+            }]
+        },
+        options: {
+            responsive: true,
+        }
+    });
+
+    new Chart(document.getElementById('radarChart'), {
+        type: 'polarArea',
+        data: {
+            labels: prodiLabels,
+            datasets: [{
+                label: 'Jumlah Mahasiswa Per Prodi',
+                data: prodiData,
                 backgroundColor: ['#36A2EB', '#FF6384']
             }]
         },
