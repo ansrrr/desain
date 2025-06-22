@@ -1,29 +1,36 @@
-// Inisialisasi peta
+let intervalId;
+let isIncrementing = false;
+let divA = document.getElementById('divA');
+let divB = document.getElementById('divB');
+let kotakSatu = document.getElementById('kotak-satu');
+let valueA = 1; // Nilai awal div A
 
-var map = L.map('map').setView([-2.7441, 111.4988], 15); // Koordinat Mendawai 4, Sukamara dan level zoom
+// let rumus;
 
-// Tambahkan OpenStreetMap tiles
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
+divA.textContent = valueA; // Tampilkan nilai awal
 
-// Tambahkan marker untuk lokasi Mendawai 4, Sukamara
-var marker = L.marker([-2.7441, 111.4988]).addTo(map);
+kotakSatu.addEventListener('click', function () {
+    // divA.textContent = "0";
+    // rumus = valueA + 2;
 
-// Tambahkan popup ke marker
-marker.bindPopup("<b>Mendawai 4, Sukamara</b>").openPopup();
+    valueA += 2;
 
-// Anda juga bisa menambahkan lingkaran, poligon, dll.
-// L.circle([-2.7441, 111.4988], {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//     radius: 500
-// }).addTo(map).bindPopup("Saya adalah lingkaran.");
+    divA.textContent = valueA;
+});
 
-// L.polygon([
-//     [-2.745, 111.498],
-//     [-2.743, 111.499],
-//     [-2.744, 111.500]
-// ]).addTo(map).bindPopup("Saya adalah poligon.");
+divB.addEventListener('click', function () {
+    if (isIncrementing) {
+        // Jika sedang incrementing, hentikan
+        clearInterval(intervalId);
+        isIncrementing = false;
+        divB.textContent = "Play";
+    } else {
+        // Jika tidak sedang incrementing, mulai
+        intervalId = setInterval(function () {
+            valueA++;
+            divA.textContent = valueA;
+        }, 300);
+        isIncrementing = true;
+        divB.textContent = "Stop";
+    }
+});
