@@ -7,18 +7,25 @@
         <div class="nav-buttons">
             <button id="prev" class="btn btn-outline-primary">Sebelumnya</button>
             <span>
-                Halaman tesd satu
+                Halaman
                 <span id="page-num">1</span> dari <span id="page-count">?</span>
             </span>
             <button id="next" class="btn btn-outline-primary">Berikutnya</button>
 
             <a href="pdf/06_Warna.pdf" onclick=window.print() class="btn btn-outline-success">
-                print
+                Print
             </a>
 
             <a href="pdf/06_Warna.pdf" download class="btn btn-outline-warning">
                 Download
             </a>
+        </div>
+
+        <div class="container mt-1">
+            <input type="number" id="page-jump-input" class="form-control d-inline-block w-auto mx-2" min="1" value="1">
+            <button id="jump-page" class="btn btn-outline-info">
+                Lompat ke Halaman
+            </button>
         </div>
     </div>
 
@@ -41,11 +48,13 @@
 
     function renderPage(num) {
         pageRendering = true;
+        // Update nilai input lompat halaman saat halaman di-render
+        document.getElementById('page-jump-input').value = num;
+
         pdfDoc.getPage(num).then(function (page) {
             const viewport = page.getViewport({ scale: scale });
             canvas.height = viewport.height;
             canvas.width = viewport.width;
-
 
             const renderContext = { canvasContext: ctx, viewport: viewport }
 
@@ -85,8 +94,30 @@
         queueRenderPage(pageNum);
     }
 
+    // Fungsi untuk melompat ke halaman yang diinput
+    function onJumpPage() {
+        const inputElement = document.getElementById('page-jump-input');
+        let pageToGo = parseInt(inputElement.value);
+
+        if (isNaN(pageToGo) || pageToGo < 1 || pageToGo > pdfDoc.numPages) {
+            // alert('Masukkan nomor halaman yang valid!');
+            inputElement.value = pageNum; // Kembalikan nilai input ke halaman saat ini
+            return;
+        }
+        pageNum = pageToGo;
+        queueRenderPage(pageNum);
+    }
+
     document.getElementById('prev').addEventListener('click', onPrevPage);
     document.getElementById('next').addEventListener('click', onNextPage);
+    document.getElementById('jump-page').addEventListener('click', onJumpPage); // Event listener untuk tombol lompat halaman
+
+    // Tambahkan event listener untuk "Enter" pada input field
+    document.getElementById('page-jump-input').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            onJumpPage();
+        }
+    });
 
     pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
         pdfDoc = pdfDoc_;
