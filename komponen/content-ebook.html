@@ -12,6 +12,8 @@
             </span>
             <button id="next" class="btn btn-outline-primary">Berikutnya</button>
 
+            
+
             <a href="pdf/06_Warna.pdf" onclick=window.print() class="btn btn-outline-success">
                 Print
             </a>
@@ -19,13 +21,9 @@
             <a href="pdf/06_Warna.pdf" download class="btn btn-outline-warning">
                 Download
             </a>
-        </div>
 
-        <div class="container mt-1">
             <input type="number" id="page-jump-input" class="form-control d-inline-block w-auto mx-2" min="1" value="1">
-            <button id="jump-page" class="btn btn-outline-info">
-                Lompat ke Halaman
-            </button>
+            <button id="jump-page" class="btn btn-outline-info">Lompat ke Halaman</button>
         </div>
     </div>
 
@@ -46,10 +44,16 @@
         canvas = document.getElementById('pdf-canvas');
     ctx = canvas.getContext('2d');
 
+    // Dapatkan referensi elemen
+    const pageJumpInput = document.getElementById('page-jump-input');
+    const jumpPageButton = document.getElementById('jump-page');
+    const pageNumSpan = document.getElementById('page-num');
+    const pageCountSpan = document.getElementById('page-count');
+
     function renderPage(num) {
         pageRendering = true;
         // Update nilai input lompat halaman saat halaman di-render
-        document.getElementById('page-jump-input').value = num;
+        pageJumpInput.value = num;
 
         pdfDoc.getPage(num).then(function (page) {
             const viewport = page.getViewport({ scale: scale });
@@ -67,10 +71,12 @@
                     renderPage(pageNumPending);
                     pageNumPending = null;
                 }
+                // Panggil fungsi untuk memeriksa status tombol setelah render selesai
+                checkJumpButtonStatus();
             });
         });
 
-        document.getElementById('page-num').textContent = num;
+        pageNumSpan.textContent = num;
     }
 
     function queueRenderPage(num) {
@@ -96,32 +102,71 @@
 
     // Fungsi untuk melompat ke halaman yang diinput
     function onJumpPage() {
-        const inputElement = document.getElementById('page-jump-input');
-        let pageToGo = parseInt(inputElement.value);
+        let pageToGo = parseInt(pageJumpInput.value);
 
+        // Validasi ganda (meskipun tombol dinonaktifkan, ini sebagai pengaman)
         if (isNaN(pageToGo) || pageToGo < 1 || pageToGo > pdfDoc.numPages) {
-            // alert('Masukkan nomor halaman yang valid!');
-            inputElement.value = pageNum; // Kembalikan nilai input ke halaman saat ini
+            alert('Masukkan nomor halaman yang valid!');
+            pageJumpInput.value = pageNum; // Kembalikan nilai input ke halaman saat ini
+            checkJumpButtonStatus(); // Panggil lagi untuk update status
             return;
         }
         pageNum = pageToGo;
         queueRenderPage(pageNum);
     }
 
+    // Fungsi untuk memeriksa dan mengatur status dan teks tombol "Lompat ke Halaman"
+    function checkJumpButtonStatus() {
+        if (!pdfDoc) return; // Pastikan pdfDoc sudah dimuat
+
+        const inputValue = pageJumpInput.value.trim(); // Ambil nilai input dan hapus spasi di awal/akhir
+        const totalPages = pdfDoc.numPages;
+
+        // Cek jika input kosong
+        if (inputValue === '') {
+            jumpPageButton.disabled = false; // Tombol tetap aktif
+            jumpPageButton.textContent = 'Lompat ke Halaman'; // Teks tetap "Lompat ke Halaman"
+            jumpPageButton.classList.remove('btn-outline-secondary');
+            jumpPageButton.classList.add('btn-outline-info');
+            return; // Hentikan fungsi di sini
+        }
+
+        const parsedValue = parseInt(inputValue);
+
+        // Cek jika input bukan angka atau di luar jangkauan
+        if (isNaN(parsedValue) || parsedValue < 1 || parsedValue > totalPages) {
+            jumpPageButton.disabled = true; // Nonaktifkan tombol
+            jumpPageButton.textContent = 'Halaman Tidak Ada'; // Ubah teks tombol
+            jumpPageButton.classList.remove('btn-outline-info');
+            jumpPageButton.classList.add('btn-outline-secondary'); // Ubah warna tombol menjadi abu-abu
+        } else {
+            jumpPageButton.disabled = false; // Aktifkan tombol
+            jumpPageButton.textContent = 'Lompat ke Halaman'; // Kembalikan teks tombol
+            jumpPageButton.classList.remove('btn-outline-secondary');
+            jumpPageButton.classList.add('btn-outline-info'); // Kembalikan warna tombol
+        }
+    }
+
+    // Event listeners
     document.getElementById('prev').addEventListener('click', onPrevPage);
     document.getElementById('next').addEventListener('click', onNextPage);
-    document.getElementById('jump-page').addEventListener('click', onJumpPage); // Event listener untuk tombol lompat halaman
+    jumpPageButton.addEventListener('click', onJumpPage);
+
+    // Tambahkan event listener untuk input field agar tombol diperbarui secara real-time
+    pageJumpInput.addEventListener('input', checkJumpButtonStatus);
 
     // Tambahkan event listener untuk "Enter" pada input field
-    document.getElementById('page-jump-input').addEventListener('keypress', function (event) {
-        if (event.key === 'Enter') {
+    pageJumpInput.addEventListener('keypress', function(event) {
+        // Lompat hanya jika tombol tidak dinonaktifkan (karena 'Halaman Tidak Ada')
+        if (event.key === 'Enter' && !jumpPageButton.disabled) {
             onJumpPage();
         }
     });
 
     pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
         pdfDoc = pdfDoc_;
-        document.getElementById('page-count').textContent = pdfDoc.numPages;
+        pageCountSpan.textContent = pdfDoc.numPages;
         renderPage(pageNum);
+        checkJumpButtonStatus(); // Panggil saat PDF pertama kali dimuat
     });
 </script>
