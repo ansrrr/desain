@@ -12,7 +12,7 @@
             </span>
             <button id="next" class="btn btn-outline-primary">Berikutnya</button>
 
-            
+
 
             <a href="pdf/06_Warna.pdf" onclick=window.print() class="btn btn-outline-success">
                 Print
@@ -22,9 +22,10 @@
                 Download
             </a>
 
-            <input type="number" id="page-jump-input" class="form-control d-inline-block w-auto mx-2" min="1" value="1">
-            <button id="jump-page" class="btn btn-outline-info">Lompat ke Halaman</button>
+
         </div>
+        <input type="number" id="page-jump-input" class="form-control d-inline-block w-auto mx-2" min="1" value="1">
+        <button id="jump-page" class="btn btn-outline-info">Lompat ke Halaman</button>
     </div>
 
     <div class="container text-center mt-4">
@@ -156,7 +157,7 @@
     pageJumpInput.addEventListener('input', checkJumpButtonStatus);
 
     // Tambahkan event listener untuk "Enter" pada input field
-    pageJumpInput.addEventListener('keypress', function(event) {
+    pageJumpInput.addEventListener('keypress', function (event) {
         // Lompat hanya jika tombol tidak dinonaktifkan (karena 'Halaman Tidak Ada')
         if (event.key === 'Enter' && !jumpPageButton.disabled) {
             onJumpPage();
